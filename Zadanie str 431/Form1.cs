@@ -75,7 +75,7 @@ namespace Zadanie_str_431
                 {
                     sw.WriteLine(excuseTextBox.Text);
                     sw.WriteLine(resultsTextBox.Text);
-                    sw.WriteLine(lastUsed.ToString());
+                    sw.WriteLine(lastUsed.Value);
 
                 }
             }
