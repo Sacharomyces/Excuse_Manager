@@ -1,0 +1,9 @@
+C:\Users\Astaroth\Documents\Repo\Projects\Zadanie str 431\Zadanie str 431\bin\Debug\Zadanie str 431.exe.config
+C:\Users\Astaroth\Documents\Repo\Projects\Zadanie str 431\Zadanie str 431\bin\Debug\Zadanie str 431.exe
+C:\Users\Astaroth\Documents\Repo\Projects\Zadanie str 431\Zadanie str 431\bin\Debug\Zadanie str 431.pdb
+C:\Users\Astaroth\Documents\Repo\Projects\Zadanie str 431\Zadanie str 431\obj\Debug\Zadanie str 431.csprojResolveAssemblyReference.cache
+C:\Users\Astaroth\Documents\Repo\Projects\Zadanie str 431\Zadanie str 431\obj\Debug\Zadanie_str_431.Form1.resources
+C:\Users\Astaroth\Documents\Repo\Projects\Zadanie str 431\Zadanie str 431\obj\Debug\Zadanie_str_431.Properties.Resources.resources
+C:\Users\Astaroth\Documents\Repo\Projects\Zadanie str 431\Zadanie str 431\obj\Debug\Zadanie str 431.csproj.GenerateResource.Cache
+C:\Users\Astaroth\Documents\Repo\Projects\Zadanie str 431\Zadanie str 431\obj\Debug\Zadanie str 431.exe
+C:\Users\Astaroth\Documents\Repo\Projects\Zadanie str 431\Zadanie str 431\obj\Debug\Zadanie str 431.pdb
