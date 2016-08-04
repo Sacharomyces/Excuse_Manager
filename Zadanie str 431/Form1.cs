@@ -18,6 +18,8 @@ namespace Zadanie_str_431
         {
             InitializeComponent();
         }
+
+        private bool formChanged;
         private string folderPath;
         private Excuse currentExcuse = new Excuse();
 
@@ -36,7 +38,7 @@ namespace Zadanie_str_431
                 else
                 {
                     this.Text = "Excuse Manager*";
-                    this.
+                    this.formChanged = changed;
                 }
                 
                 }
@@ -44,6 +46,7 @@ namespace Zadanie_str_431
         
         private void folderButton_Click(object sender, EventArgs e)
         {
+            
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
                 folderPath = folderBrowserDialog1.SelectedPath;
@@ -61,7 +64,21 @@ namespace Zadanie_str_431
 
         private void saveButton_Click(object sender, EventArgs e)
         {
+            saveFileDialog1.InitialDirectory = folderPath;
+            saveFileDialog1.Filter = "text file|.txt|All files|*.*";
+            saveFileDialog1.FileName = excuseTextBox.Text + ".txt";
 
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                
+                using (StreamWriter sw = new StreamWriter(saveFileDialog1.FileName))
+                {
+                    sw.WriteLine(excuseTextBox.Text);
+                    sw.WriteLine(resultsTextBox.Text);
+                    sw.WriteLine(lastUsed.ToString());
+
+                }
+            }
         }
 
         private void randomButton_Click(object sender, EventArgs e)
@@ -69,10 +86,7 @@ namespace Zadanie_str_431
 
         }
 
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+        
 
        
     }
