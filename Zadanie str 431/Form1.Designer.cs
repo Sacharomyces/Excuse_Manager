@@ -1,4 +1,6 @@
-﻿namespace Zadanie_str_431
+﻿using System;
+
+namespace Zadanie_str_431
 {
     partial class Form1
     {
@@ -80,7 +82,7 @@
             this.excuseTextBox.Name = "excuseTextBox";
             this.excuseTextBox.Size = new System.Drawing.Size(406, 26);
             this.excuseTextBox.TabIndex = 0;
-            this.excuseTextBox.Text = " ";
+            this.excuseTextBox.TextChanged += new System.EventHandler(this.excuseTextBox_TextChanged);
             // 
             // resultsTextBox
             // 
@@ -89,6 +91,7 @@
             this.resultsTextBox.Name = "resultsTextBox";
             this.resultsTextBox.Size = new System.Drawing.Size(406, 26);
             this.resultsTextBox.TabIndex = 1;
+            this.resultsTextBox.TextChanged += new System.EventHandler(this.resultsTextBox_TextChanged);
             // 
             // excuseLabel
             // 
@@ -120,7 +123,7 @@
             this.useLabel.Name = "useLabel";
             this.useLabel.Size = new System.Drawing.Size(114, 41);
             this.useLabel.TabIndex = 6;
-            this.useLabel.Text = "Last used";
+            this.useLabel.Text = "Last Used";
             this.useLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // fileDateLabel
@@ -131,7 +134,7 @@
             this.fileDateLabel.Name = "fileDateLabel";
             this.fileDateLabel.Size = new System.Drawing.Size(114, 44);
             this.fileDateLabel.TabIndex = 7;
-            this.fileDateLabel.Text = "File Date";
+            this.fileDateLabel.Text = "Last Saved";
             this.fileDateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // showDateLabel
@@ -146,13 +149,16 @@
             // 
             // lastUsed
             // 
+            this.lastUsed.CustomFormat = " ";
             this.lastUsed.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lastUsed.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.lastUsed.Location = new System.Drawing.Point(123, 90);
             this.lastUsed.Margin = new System.Windows.Forms.Padding(3, 8, 3, 3);
             this.lastUsed.Name = "lastUsed";
             this.lastUsed.Size = new System.Drawing.Size(409, 26);
             this.lastUsed.TabIndex = 9;
-            this.lastUsed.Value = new System.DateTime(2016, 8, 4, 14, 37, 6, 0);
+            this.lastUsed.Value = new System.DateTime(2016, 8, 9, 0, 0, 0, 0);
+            this.lastUsed.ValueChanged += new System.EventHandler(this.lastUsed_ValueChanged);
             // 
             // folderButton
             // 
@@ -212,12 +218,14 @@
             this.Controls.Add(this.folderButton);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Excuse Manager";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
+
+       
 
         #endregion
 

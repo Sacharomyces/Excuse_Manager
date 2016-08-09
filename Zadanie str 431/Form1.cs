@@ -13,40 +13,46 @@ namespace Zadanie_str_431
 {
     public partial class Form1 : Form
     {
-        
+
         public Form1()
         {
             InitializeComponent();
+
+            currentExcuse.LastUsed = lastUsed.Value.Date;
         }
 
-        private bool formChanged;
-        private string folderPath;
+        private bool formChanged = false;
+        private string folderPath = "";
         private Excuse currentExcuse = new Excuse();
+        Random random = new Random();
+        public string LastSavedFilename { get; set; } = "";
 
-        private void updateForm (bool changed)
+        private void updateForm(bool changed)
         {
             if (!changed)
             {
-                this.excuseTextBox.Text = currentExcuse.Decsription;
+                this.excuseTextBox.Text = currentExcuse.Description;
                 this.resultsTextBox.Text = currentExcuse.Results;
-                this.lastUsed.Value = currentExcuse.LastUsed;
+                this.lastUsed.Format = DateTimePickerFormat.Long;
+                this.lastUsed.Value =currentExcuse.LastUsed;
                 if (!String.IsNullOrEmpty(currentExcuse.ExcusePath))
-                {
-                    showDateLabel.Text = File.GetLastAccessTime(currentExcuse.ExcusePath).ToString();
-                    this.Text = "Excuse Manager";
-                }
-                else
-                {
-                    this.Text = "Excuse Manager*";
-                    this.formChanged = changed;
-                }
-                
-                }
+                    showDateLabel.Text = File.GetLastWriteTime(currentExcuse.ExcusePath).ToString();
+                this.Text = "Excuse Manager";
+                this.LastSavedFilename = currentExcuse.Description;
             }
-        
+            else
+            
+                this.Text = "Excuse Manager*";
+                this.formChanged = changed;
+            }
+
+
+       
+
         private void folderButton_Click(object sender, EventArgs e)
         {
-            
+            folderBrowserDialog1.SelectedPath = folderPath;
+
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
                 folderPath = folderBrowserDialog1.SelectedPath;
@@ -59,35 +65,85 @@ namespace Zadanie_str_431
 
         private void openButton_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void saveButton_Click(object sender, EventArgs e)
-        {
-            saveFileDialog1.InitialDirectory = folderPath;
-            saveFileDialog1.Filter = "text file|.txt|All files|*.*";
-            saveFileDialog1.FileName = excuseTextBox.Text + ".txt";
-
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            if (checkChanged())
             {
-                
-                using (StreamWriter sw = new StreamWriter(saveFileDialog1.FileName))
+                openFileDialog1.InitialDirectory = folderPath;
+                openFileDialog1.Filter = "text file|*.txt|All files|*.*";
+                openFileDialog1.FileName = LastSavedFilename + ".txt";
+
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    sw.WriteLine(excuseTextBox.Text);
-                    sw.WriteLine(resultsTextBox.Text);
-                    sw.WriteLine(lastUsed.Value);
+                    currentExcuse = new Excuse(openFileDialog1.FileName);
+                    updateForm(false);
+
 
                 }
             }
         }
 
-        private void randomButton_Click(object sender, EventArgs e)
+        private void saveButton_Click(object sender, EventArgs e)
         {
+            if (String.IsNullOrEmpty(currentExcuse.Description) || String.IsNullOrEmpty(currentExcuse.Results))
+            {
+                MessageBox.Show("Please specify an excuse and a result", "Unable to save", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            saveFileDialog1.InitialDirectory = folderPath;
+            saveFileDialog1.Filter = "text file|*.txt|All files|*.*";
+            saveFileDialog1.FileName = LastSavedFilename + ".txt";
 
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                currentExcuse.SaveFile(saveFileDialog1.FileName);
+                updateForm(false);
+                MessageBox.Show("Excuse saved!");
+            }
         }
 
-        
+        private bool checkChanged()
+        {
+            if (formChanged)
+            {
+                DialogResult result = MessageBox.Show("There are unsaved changes. Proceed?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-       
+                if (result == DialogResult.No)
+
+                    return false;
+            }
+            return true;
+        }
+        
+        private void excuseTextBox_TextChanged(object sender, EventArgs e)
+        {
+            
+                currentExcuse.Description = excuseTextBox.Text;
+                updateForm(true);
+            
+        }
+
+        private void lastUsed_ValueChanged(object sender, EventArgs e)
+        {
+            
+                currentExcuse.LastUsed = lastUsed.Value;
+                updateForm(true);
+            
+        }
+        private void resultsTextBox_TextChanged(object sender, EventArgs e)
+        {
+           
+                currentExcuse.Results = resultsTextBox.Text;
+                updateForm(true);
+            
+        }
+
+        private void randomButton_Click(object sender, EventArgs e)
+        {
+            if (checkChanged())
+            {
+                currentExcuse = new Excuse(random,folderPath);
+                updateForm(false);
+                
+            }
+        } 
     }
 }
